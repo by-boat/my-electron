@@ -1,7 +1,8 @@
 <template>
   <div>
     <div class="top">
-      <div class="title">todo MVC</div>
+      <div class="title" @click="utils.showDialog()">todo MVC
+      </div>
       <el-button class="btn" type="success" plain @click="dialogVisible = true">添加待办事项</el-button>
     </div>
     <el-table style="width: 800px; margin: 30px auto" border :data="todo_list">
@@ -49,23 +50,18 @@ import { onMounted, reactive, computed, ref } from 'vue';
 import utils from '../renderer_utils'
 import { ipcRenderer } from "electron";
 
-function getDateTimeObj() { }
-
 const dialogVisible = ref(false);
 const form: any = ref(null);
-const todo_list: { value: Array<Record<string, any>> } = ref([]);
-
+const todo_list: any = ref([]);
 const ruleForm = reactive({
   name: '',
   time: Date.now(),
 })
-
 const rules = reactive({
   name: [
     { required: true, message: '请输入待办事项名', trigger: 'blur' },
   ],
 })
-
 const totle = computed(() => todo_list.value.length);
 const dones = computed(() => todo_list.value.filter(({ done }) => done).length);
 
@@ -95,7 +91,6 @@ function del(row) {
     }
   }
   const data = ipcRenderer.sendSync('set_todo_list', arr);
-  console.log('run3', data)
   if (data === 'success') {
     get_user_todo_list()
   }
