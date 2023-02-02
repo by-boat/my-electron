@@ -1,21 +1,8 @@
 <template>
   <div class="header">
-    <el-menu
-      router
-      class="el-menu-demo"
-      mode="horizontal"
-      background-color="#545c64"
-      text-color="#fff"
-      :collapse-transition="false"
-      active-text-color="#ffd04b"
-      :default-active="curRoute"
-    >
-      <el-menu-item
-        v-for="{ path, title } in nav_list"
-        :index="path"
-        :key="path"
-        >{{ title }}</el-menu-item
-      >
+    <el-menu router class="el-menu-demo" mode="horizontal" background-color="#545c64" text-color="#fff"
+      :collapse-transition="false" active-text-color="#ffd04b" :default-active="curRoute">
+      <el-menu-item v-for="{ path, title } in nav_list" :index="path" :key="path">{{ title }}</el-menu-item>
     </el-menu>
     <div class="menu">
       <p @click="reload">刷新</p>
@@ -34,10 +21,11 @@
 </template>
 
 <script setup lang="ts">
-import { ipcRenderer } from "electron";
+// import { ipcRenderer } from "electron";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import { ref, computed } from "vue";
+import utils from './renderer_utils'
 
 const store = useStore();
 const router = useRouter();
@@ -51,8 +39,10 @@ const curRoute = computed(() => {
 });
 
 function set_win_state(arg) {
-  ipcRenderer.send("win_task", arg);
-  console.log("run", arg);
+  utils.set_win_state(arg)
+  // ipcRenderer.send("win_task", arg);
+  // console.log("run", arg);
+  // utils.log('process', '测试协议哎')
 }
 
 function reload() {
@@ -60,15 +50,23 @@ function reload() {
 }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
 .header {
   position: relative;
   /* 设置可拖拽桌面应用 */
   -webkit-app-region: drag;
 }
+
 .el-menu-demo * {
   -webkit-app-region: no-drag;
 }
+
 .menu {
   position: absolute;
   right: 0;
