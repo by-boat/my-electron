@@ -27,7 +27,7 @@ const logger = winston.createLogger({
   format: conbinedFormat,
   transports: [
     new winston.transports.File({
-      filename: 'logs/server.log',
+      filename: 'D:/logs/server.log',
       maxsize: 1024 * 1024 * 2,
       maxFiles: 8,
       tailable: true,

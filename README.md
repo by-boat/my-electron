@@ -1,19 +1,5 @@
-# app
+# 记录一下使用electron搭建桌面应用
 
-## Project setup
-```
 npm install
-```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+npm start
